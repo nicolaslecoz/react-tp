@@ -81,27 +81,25 @@ const peoples = [
   {
     firstName : "Pierre",
     lastName : "Richard",
-    photo : "", 
+    photo : "https://scontent-cdg4-3.xx.fbcdn.net/v/t39.30808-6/365772992_621518556633927_5807274940530598917_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_ohc=iUfYpMcMkE0Q7kNvgGjSOND&_nc_zt=23&_nc_ht=scontent-cdg4-3.xx&_nc_gid=AFbZ_9f7uUGMeUfkOxhChDB&oh=00_AYBepMvcqHnBkbt_a334vYvF_M6Qn1-ms6Lb-rSO4Fmk1Q&oe=672EDCC7",
   },
-    {
+  {
     firstName : "Paul",
     lastName : "Verlaine",
-    photo : "", 
   },
-    {
+  {
     firstName : "Jacques",
     lastName : "Brel",
-    photo : "", 
+    photo : "https://www.radiofrance.fr/s3/cruiser-production/2016/09/ad8ab55c-2407-44bf-a4de-d7b0ff489993/250x250_jacques_brel.jpg",
   },
-    {
+  {
     firstName : "Didier",
     lastName : "Drogba",
-    photo : "", 
   },
-    {
+  {
     firstName : "Nicolas",
     lastName : "Le Jardinier",
-    photo : "", 
+    photo : "https://geneacdn.net/bundles/geneanetgeneastar/images/celebrites/200px/lejardinier.jpg",
   },
 ]
 ``` 
@@ -183,10 +181,20 @@ exemple de html associé
     </div>
 ```
 
-l'image en base64 par défaut (la citrouille) se trouve dans data/citrouille-content-base64.txt
+l'image en base64 par défaut (la cirtrouille) se trouve dans data/citrouille-content-base64.txt
 
 pour vérifier votre résultat comparé à l'image data/react-app-1.2.5.png
 
+
+A RAJOUTER DANS LE PACKAGE
+
+/*
+"eslintConfig": {
+"extends": [
+"react-app",
+"react-app/jest"
+]
+},*/
 
 # TP 2 - Router
 
@@ -243,3 +251,5 @@ Vous n'avez besoin de rie n'effacer on va faire une nouvelle app dans l'app avec
 On va faire le remplacement dans index.js
 
 Faire une navbar qui va changer le contenu de la navigation
+
+
