@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+
+
+    environment {
+        REPO_URL = 'git@bitbucket.org:jozait/kanban.git'
+        REPO_DIR = 'kanban'
+        MAVEN = 'maven'
+        MAVEN_SETTINGS = 'a8ce61c0-fd72-4759-9176-4da6cf37c225'
+        JAVA_HOME = '/var/lib/jenkins/java-21' // Set JAVA_HOME explicitly
+        PATH = "${env.JAVA_HOME}/bin:${env.PATH}" // Ensure JAVA_HOME is in the PATH
+    }
+
+    stages {
+
+        stage('BUILD') {
+            steps {
+
+                withMaven(maven: MAVEN, mavenSettingsConfig: MAVEN_SETTINGS) {
+                    sh 'echo $JAVA_HOME'
+                    sh 'mvn -U clean install'
+                }
+            }
+        }
+        stage('UNIT TESTING') {
+            steps {
+                withMaven(maven: MAVEN, mavenSettingsConfig: MAVEN_SETTINGS) {
+                    sh 'mvn verify'
+                }
+            }
+        }
+
+        stage('DEPLOY TO NEXUS') {
+            steps {
+                withMaven(maven: MAVEN, mavenSettingsConfig: MAVEN_SETTINGS) {
+                    sh 'mvn deploy -DskipTests'
+                }
+            }
+        }
+
+
+        stage("DOCKER COMPOSE") {
+            steps {
+                script {
+                    sh 'echo "Built successfully"'
+                    def branch = BRANCH_NAME
+                    def prodName = "kanban"
+                    def stackName = prodName
+                    def dockerComposeFile = "docker-compose.yml"
+                    def cdCommand = "cd kanban"
+                    def checkoutCommand = "git checkout ${branch}"
+                    def pullCommand = "git pull --rebase"
+                    def dockerUpCommand = "docker-compose -f ${dockerComposeFile} -p ${stackName} up --build -d"
+                    def sshCommand = "ssh -oStrictHostKeyChecking=no joza@tuesday.joza-it.fr"
+                    sh "${sshCommand} '${cdCommand} && ${checkoutCommand}'"
+                    sh "${sshCommand} '${cdCommand} && ${pullCommand}'"
+                    sh "${sshCommand} '${cdCommand} && ${dockerUpCommand}'"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: kanban
+  h2:
+    console:
+      enabled: false
+      path: /h2-console
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: 'jdbc:h2:mem:kanban'
+    username: kanban
+    password: kanban
+
+
+api:
+  base:
+    url: /kanban-api/v1
+    rooturl: /kanban-api
+
+  jwtSecret: 6EQ3@t8sQ?5jPyJyj@gm?XqfAMd#45R&7Y7t4L#Q
